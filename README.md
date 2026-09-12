@@ -2,17 +2,19 @@
 
 [![Cypress Tests](https://github.com/ashishbsdet-sketch/cypress_automation/actions/workflows/cypress.yml/badge.svg)](https://github.com/ashishbsdet-sketch/cypress_automation/actions/workflows/cypress.yml)
 
-This project exercises form behaviour and browser-to-API interactions on the public [Cypress Kitchen Sink](https://example.cypress.io). I chose this application because it offers stable, purpose-built examples without repeating the shopping or login flows used in my other automation repositories.
+This project exercises browser behaviour and browser-to-API interactions on the public [Cypress Kitchen Sink](https://example.cypress.io). I chose this application because it offers stable, purpose-built examples without repeating the shopping or login flows used in my other automation repositories.
 
 The framework is intentionally small enough to understand at a glance, while still showing the engineering practices I would use on a larger test suite.
 
 ## What is covered
 
-- form input, selection, checkbox and submission behaviour
-- client-side validation of a successful form submission
+- form input, clearing, selection, focus, blur and submission behaviour
+- mouse interactions that reveal alternate page content
+- element lookup within lists and component boundaries
+- breadcrumb, navigation, list and sibling traversal
 - intercepted GET and POST requests with response assertions
 - a direct API contract check from Cypress
-- independent Chrome and Firefox execution
+- 12 independent scenarios in Chrome and Firefox
 - TypeScript validation before browser tests
 - JUnit reports, videos and failure screenshots
 - passed, failed and skipped counts in the GitHub Actions summary
@@ -59,7 +61,8 @@ npm run test:typecheck
 - Specs describe behaviour; page objects own selectors and repeated interactions.
 - Test data lives in fixtures instead of being scattered through the suite.
 - Network tests assert status and response shape, not only visible messages.
-- Every scenario starts from a known page and can run by itself.
+- Each scenario opens a known starting page and can run by itself.
+- Queries are scoped to the relevant component to reduce accidental matches.
 - CI does not hide browser failures: it records evidence, publishes counts, then fails the job.
 - One retry is available in CI for transient browser problems, while local failures remain immediate.
 

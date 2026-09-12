@@ -10,6 +10,33 @@ export class ActionsPage {
       .should('have.value', email);
   }
 
+  clearEmail(email: string): void {
+    cy.get('.action-clear')
+      .type(email)
+      .should('have.value', email)
+      .clear()
+      .should('have.value', '');
+  }
+
+  verifyFocusAndBlurStates(): void {
+    cy.get('.action-focus')
+      .focus()
+      .should('have.class', 'focus');
+
+    cy.get('.action-blur')
+      .type('Ready to leave this field')
+      .blur()
+      .should('have.class', 'error');
+  }
+
+  revealContentWithDoubleClick(): void {
+    cy.get('.action-div')
+      .dblclick()
+      .should('not.be.visible');
+
+    cy.get('.action-input-hidden').should('be.visible');
+  }
+
   chooseAvailableOptions(): void {
     cy.get('.action-checkboxes [type="checkbox"]')
       .not('[disabled]')

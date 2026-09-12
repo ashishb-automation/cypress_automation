@@ -27,6 +27,18 @@ describe('Form actions', () => {
     actionsPage.selectFruit(formData.fruit, formData.fruitValue);
   });
 
+  it('clears an editable field completely', () => {
+    actionsPage.clearEmail(formData.email);
+  });
+
+  it('reflects focus and blur states to the user', () => {
+    actionsPage.verifyFocusAndBlurStates();
+  });
+
+  it('reveals the alternate control after a double click', () => {
+    actionsPage.revealContentWithDoubleClick();
+  });
+
   it('confirms a submitted coupon form', () => {
     actionsPage.submitCoupon(formData.coupon);
   });
