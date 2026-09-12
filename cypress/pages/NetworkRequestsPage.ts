@@ -21,7 +21,10 @@ export class NetworkRequestsPage {
     cy.get('.network-post').click();
 
     cy.wait('@postComment').then(({ request, response }) => {
-      expect(request.body, 'POST request body').to.be.an('object');
+      const submittedForm = new URLSearchParams(String(request.body));
+
+      expect(submittedForm.get('name')).to.eq('Using POST in cy.intercept()');
+      expect(submittedForm.get('email')).to.eq('hello@cypress.io');
       expect(response?.statusCode).to.eq(201);
       expect(response?.body).to.have.property('id');
     });
