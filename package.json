@@ -1,0 +1,18 @@
+{
+  "name": "cypress-ui-network-automation",
+  "version": "1.0.0",
+  "description": "Cypress and TypeScript tests for form behaviour and browser-to-API interactions",
+  "private": true,
+  "scripts": {
+    "test": "cypress run",
+    "test:chrome": "cypress run --browser chrome",
+    "test:firefox": "cypress run --browser firefox",
+    "test:open": "cypress open",
+    "test:headed": "cypress run --headed --browser chrome",
+    "test:typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "cypress": "15.3.0",
+    "typescript": "5.9.2"
+  }
+}

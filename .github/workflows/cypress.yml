@@ -1,0 +1,80 @@
+name: Cypress Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cypress-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: TypeScript validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Validate TypeScript
+        run: npm run test:typecheck
+
+  test:
+    name: ${{ matrix.browser }} regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chrome, firefox]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Cache Cypress binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('package.json') }}
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Run Cypress tests
+        id: cypress_tests
+        continue-on-error: true
+        env:
+          BASE_URL: https://example.cypress.io
+        run: npx cypress run --browser ${{ matrix.browser }}
+      - name: Publish test counts
+        id: test_summary
+        if: always()
+        env:
+          BROWSER: ${{ matrix.browser }}
+        run: python3 .github/scripts/publish_test_summary.py
+      - name: Upload reports and diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-results-${{ matrix.browser }}-${{ github.run_number }}
+          path: |
+            reports/
+            cypress/screenshots/
+            cypress/videos/
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Fail workflow when tests fail
+        if: steps.cypress_tests.outcome == 'failure'
+        run: |
+          echo "::error title=${{ matrix.browser }} regression failed::${{ steps.test_summary.outputs.failed }} failed, ${{ steps.test_summary.outputs.passed }} passed"
+          exit 1
