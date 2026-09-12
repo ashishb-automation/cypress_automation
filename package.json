@@ -1,7 +1,7 @@
 {
-  "name": "cypress-ecommerce-automation",
+  "name": "cypress-ui-network-automation",
   "version": "1.0.0",
-  "description": "Cypress and TypeScript end-to-end tests for a public e-commerce application",
+  "description": "Cypress and TypeScript tests for form behaviour and browser-to-API interactions",
   "private": true,
   "scripts": {
     "test": "cypress run",

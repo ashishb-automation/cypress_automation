@@ -1,17 +1,15 @@
-import { HomePage } from '../pages/HomePage';
-
 declare global {
   namespace Cypress {
     interface Chainable {
-      searchForProduct(productName: string): Chainable<void>;
+      openExample(path: string, heading: string): Chainable<void>;
     }
   }
 }
 
-Cypress.Commands.add('searchForProduct', (productName: string) => {
-  const homePage = new HomePage();
-  homePage.visit();
-  homePage.search(productName);
+Cypress.Commands.add('openExample', (path: string, heading: string) => {
+  cy.visit(path);
+  cy.contains('h1', heading).should('be.visible');
+  cy.location('pathname').should('eq', path);
 });
 
 export {};

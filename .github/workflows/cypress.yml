@@ -54,7 +54,7 @@ jobs:
         id: cypress_tests
         continue-on-error: true
         env:
-          BASE_URL: https://demo.nopcommerce.com
+          BASE_URL: https://example.cypress.io
         run: npx cypress run --browser ${{ matrix.browser }}
       - name: Publish test counts
         id: test_summary

@@ -1,31 +1,33 @@
-# Cypress E-commerce Automation
+# Cypress UI and Network Automation
 
 [![Cypress Tests](https://github.com/ashishbsdet-sketch/cypress_automation/actions/workflows/cypress.yml/badge.svg)](https://github.com/ashishbsdet-sketch/cypress_automation/actions/workflows/cypress.yml)
 
-This project tests product search and shopping-cart behaviour on the public [nopCommerce demo store](https://demo.nopcommerce.com). I used Cypress and TypeScript to keep the scenarios readable while separating selectors, reusable actions and test data from the specs.
+This project exercises form behaviour and browser-to-API interactions on the public [Cypress Kitchen Sink](https://example.cypress.io). I chose this application because it offers stable, purpose-built examples without repeating the shopping or login flows used in my other automation repositories.
+
+The framework is intentionally small enough to understand at a glance, while still showing the engineering practices I would use on a larger test suite.
 
 ## What is covered
 
-- exact and partial product searches
-- no-results validation
-- add-to-cart network response
-- cart item and quantity checks
-- removing a product and confirming the empty state
-- Chrome and Firefox execution
-- JUnit reporting, videos and failure screenshots
-- visible passed, failed and skipped counts in GitHub Actions
+- form input, selection, checkbox and submission behaviour
+- client-side validation of a successful form submission
+- intercepted GET and POST requests with response assertions
+- a direct API contract check from Cypress
+- independent Chrome and Firefox execution
+- TypeScript validation before browser tests
+- JUnit reports, videos and failure screenshots
+- passed, failed and skipped counts in the GitHub Actions summary
 
 ## Project structure
 
 ```text
 .
 ├── cypress/
-│   ├── e2e/                  # Customer journeys
-│   ├── fixtures/             # Reusable product data
-│   ├── pages/                # Page objects
-│   └── support/              # Commands and global setup
-├── docs/TEST_STRATEGY.md     # Scope, risks and merge gates
-├── .github/workflows/        # Cross-browser CI
+│   ├── e2e/                  # Behaviour-focused specifications
+│   ├── fixtures/             # Reusable test data
+│   ├── pages/                # Page objects and selectors
+│   └── support/              # Custom commands and global setup
+├── docs/TEST_STRATEGY.md     # Scope, risks and quality gates
+├── .github/workflows/        # Cross-browser CI pipeline
 ├── cypress.config.ts
 ├── package.json
 └── tsconfig.json
@@ -54,28 +56,23 @@ npm run test:typecheck
 
 ## Design choices
 
-- Specs describe customer behaviour rather than implementation details.
-- Page objects keep selectors and interactions in one place.
-- A custom command handles the repeated product-search setup.
-- Network intercepts confirm that search and cart requests complete successfully.
-- Tests clear browser storage and do not depend on execution order.
-- CI retains JUnit reports, videos and screenshots for investigation.
-- The workflow summary reports real test counts even when a run fails.
+- Specs describe behaviour; page objects own selectors and repeated interactions.
+- Test data lives in fixtures instead of being scattered through the suite.
+- Network tests assert status and response shape, not only visible messages.
+- Every scenario starts from a known page and can run by itself.
+- CI does not hide browser failures: it records evidence, publishes counts, then fails the job.
+- One retry is available in CI for transient browser problems, while local failures remain immediate.
 
-The detailed scope and risks are documented in [the test strategy](docs/TEST_STRATEGY.md).
+The scope, merge gates and known risks are documented in [the test strategy](docs/TEST_STRATEGY.md).
 
 ## Configuration
 
-The default application URL is `https://demo.nopcommerce.com`. Set `BASE_URL` to run the same suite against another compatible environment.
-
-## Known limitation
-
-The application is a public demo and its catalogue may change. The suite deliberately avoids account creation or order submission so it does not leave shared data behind.
+The default application URL is `https://example.cypress.io`. Set `BASE_URL` to point the suite at another compatible environment.
 
 ## Next improvements
 
-The next meaningful extension would cover authenticated customer flows, accessibility checks and visual comparisons once stable test data is available.
+For a product-owned environment, I would add accessibility checks, tagged smoke/regression suites, controlled test-data creation and parallel execution based on measured pipeline duration.
 
 ## Disclaimer
 
-nopCommerce is a public demo application. This repository is an independent portfolio project.
+The Cypress Kitchen Sink is a public demonstration application. This repository is an independent portfolio project.

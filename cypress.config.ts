@@ -2,7 +2,7 @@ import { defineConfig } from 'cypress';
 
 export default defineConfig({
   e2e: {
-    baseUrl: process.env.BASE_URL || 'https://demo.nopcommerce.com',
+    baseUrl: process.env.BASE_URL || 'https://example.cypress.io',
     specPattern: 'cypress/e2e/**/*.cy.ts',
     supportFile: 'cypress/support/e2e.ts',
     fixturesFolder: 'cypress/fixtures',
