@@ -14,7 +14,7 @@ This suite gives fast feedback on browser behaviour and browser-to-API interacti
 | Component | Scoped queries, breadcrumbs, navigation, lists and sibling tabs |
 | Integration | Browser-triggered GET and POST requests |
 | Contract | Direct comment API status and response shape |
-| Cross-browser | 12 scenarios in Chrome and Firefox |
+| Cross-browser | 14 scenarios in Chrome and Firefox |
 
 ## Test design
 
@@ -27,7 +27,7 @@ Network assertions check the response status and essential payload fields. They 
 A change is ready when:
 
 1. TypeScript validation passes.
-2. Chrome and Firefox execute all 12 scenarios.
+2. Chrome and Firefox execute all 14 scenarios.
 3. The Actions summary reports non-zero test totals.
 4. A failing test preserves JUnit, video and screenshot evidence.
 5. Tests pass independently and do not rely on execution order.

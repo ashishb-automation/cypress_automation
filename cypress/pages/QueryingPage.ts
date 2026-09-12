@@ -17,8 +17,8 @@ export class QueryingPage {
 
   verifyScopedFormLookup(): void {
     cy.get('.query-form').within(() => {
-      cy.get('input').should('have.length.at.least', 1);
-      cy.get('button').should('have.length', 1).and('be.visible');
+      cy.get('input:first').should('have.attr', 'placeholder', 'Email');
+      cy.get('input:last').should('have.attr', 'placeholder', 'Password');
     });
   }
 }

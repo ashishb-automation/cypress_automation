@@ -14,7 +14,7 @@ The framework is intentionally small enough to understand at a glance, while sti
 - breadcrumb, navigation, list and sibling traversal
 - intercepted GET and POST requests with response assertions
 - a direct API contract check from Cypress
-- 12 independent scenarios in Chrome and Firefox
+- 14 independent scenarios in Chrome and Firefox
 - TypeScript validation before browser tests
 - JUnit reports, videos and failure screenshots
 - passed, failed and skipped counts in the GitHub Actions summary
